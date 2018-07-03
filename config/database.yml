@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: db
+  username: postgres
+  password: postgres
+
+development:
+  <<: *default
+  database: api_scotch01_development
+
+test:
+  <<: *default
+  database: api_scotch01_test
+
+production:
+  <<: *default
+  database: api_scotch01_production
+  username: api_scotch01
+  password: <%= ENV['DATABASE_PASSWORD'] %>

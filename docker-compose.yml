@@ -1,0 +1,24 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    ports:
+      - "15434:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: pipster_development
+  web:
+    build: .
+    tty: true
+    stdin_open: true
+    command: sh ./docker/web/start.sh
+    #command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/api_scotch_io
+    ports:
+      - "3001:3000"
+    depends_on:
+      - db
